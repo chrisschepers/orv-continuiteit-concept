@@ -45,7 +45,7 @@ function render(){
  const query=$('search').value.toLocaleLowerCase('nl').trim();
  const filtered=cases.filter(item=>matches(item,view)&&($('status').value==='all'||item.state===$('status').value)&&`${item.name} ${item.id}`.toLocaleLowerCase('nl').includes(query));
  filtered.sort((a,b)=>ascending?a.last.localeCompare(b.last):b.last.localeCompare(a.last));
- $('rows').innerHTML=filtered.map(item=>{const [label,color]=signal(item);return `<tr><td><span class="person">${escape(item.name)}</span><span class="secondary">${item.id}</span></td><td class="date">${date(item.last)}</td><td>${item.submitted?`<span class="orv-yes">Ja</span><span class="secondary date">${date(item.submitted)}</span>`:'<span class="orv-no">Nee</span>'}</td><td>${followup(item)}${item.state==='exception'?`<span class="secondary">Herbeoordelen ${date(item.review)}</span>`:''}</td><td><span class="status-label ${color}">${label}</span></td><td><button class="row-action" data-id="${item.id}" aria-label="Open demodossier van ${escape(item.name)}">&#8250;</button></td></tr>`;}).join('');
+ $('rows').innerHTML=filtered.map(item=>`<tr><td><span class="person">${escape(item.name)}</span><span class="secondary">${item.id}</span></td><td class="date">${date(item.last)}</td><td>${item.submitted?`<span class="orv-yes">Ja</span><span class="secondary date">${date(item.submitted)}</span>`:'<span class="orv-no">Nee</span>'}</td><td><button class="row-action" data-id="${item.id}" aria-label="Open demodossier van ${escape(item.name)}">&#8250;</button></td></tr>`).join('');
  document.querySelectorAll('#rows tr').forEach((row,index)=>{
   const item=filtered[index];
   const firstDayCell=row.insertCell(1);firstDayCell.className='date';firstDayCell.textContent=date(item.firstSickDay);
