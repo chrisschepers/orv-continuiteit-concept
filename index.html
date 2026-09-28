@@ -7,28 +7,29 @@
   <meta name="description" content="Interactief concept voor controle op spreekuurcontinuiteit met uitsluitend fictieve dossiergegevens.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230077ad'/%3E%3Cpath d='M8 17l5 5 11-12' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="xpert.css">
 </head>
 <body>
 <aside class="sidebar" id="navigation">
   <a class="brand" href="./" aria-label="Spreekuurcontinuiteit startpagina">hes<span>.</span></a>
-  <div class="workspace">ARBO &amp; GEZONDHEID</div>
-  <nav aria-label="Hoofdnavigatie"><a class="nav-link" href="#overzicht">Werkoverzicht</a><a class="nav-link active" href="#overzicht" aria-current="page">Spreekuurcontinuiteit</a></nav>
+  <div class="workspace">Werkoverzicht</div>
+  <nav aria-label="Hoofdnavigatie"><a class="nav-link" href="#overzicht">Trajectbeheer</a><a class="nav-link active" href="#overzicht" aria-current="page">Spreekuurcontinuiteit</a></nav>
   <div class="sidebar-bottom"><span class="avatar">CS</span><div>Chris Schepers<small>Casemanager</small></div></div>
 </aside>
 <div class="app">
-  <header class="topbar"><span>Werkoverzicht <span class="slash">/</span> <strong>Spreekuurcontinuiteit</strong></span><span class="concept">CONCEPT</span></header>
-  <div class="demo-note"><strong>Demoomgeving</strong><span>Alle dossiergegevens zijn fictief. De namen zijn placeholders; er worden geen echte verzoeken verstuurd.</span></div>
+  <header class="topbar"><span class="product-name">XS <span>Xpert Suite · Concept</span></span><span class="current-tab">Spreekuurcontinuiteit</span><span class="concept">DEMO · FICTIEVE DOSSIERS</span></header>
+  <div class="demo-note"><strong>Demoomgeving</strong><span>Goedgekeurde placeholdernamen en fictieve dossiergegevens. Geen koppeling met Xpert Suite.</span></div>
   <main id="overzicht">
-    <div class="page-heading"><div><p class="eyebrow">MIJN WERKVOORRAAD</p><h1>Spreekuurcontinuiteit</h1></div><div class="reference">Peildatum demo<strong>28 september 2026</strong></div></div>
-    <section class="summary" aria-label="Samenvatting">
+    <div class="page-heading"><h1>Trajectfilter</h1></div>
+    <section class="summary" aria-label="Samenvatting" hidden>
       <button data-view="all"><span>Alle dossiers</span><strong id="count-all">12</strong><small>Na een spreekuur</small></button>
       <button data-view="attention" class="attention"><span>Aandacht nodig</span><strong id="count-attention">3</strong><small>Vervolg niet geborgd</small></button>
       <button data-view="progress"><span>Loopt door</span><strong id="count-progress">6</strong><small>Bij planning of ingepland</small></button>
       <button data-view="exception"><span>Uitzonderingen</span><strong id="count-exception">3</strong><small>Bewust geen vervolg</small></button>
     </section>
-    <div class="section-heading"><h2>Dossieroverzicht</h2><span id="result-count" aria-live="polite"></span></div>
+    <div class="section-heading"><h2>Spreekuurcontinuiteit</h2><span id="result-count" aria-live="polite"></span></div>
     <div class="tabs" role="tablist" aria-label="Dossierselectie"><button role="tab" aria-selected="true" data-view="all">Alle dossiers</button><button role="tab" aria-selected="false" data-view="attention">Aandacht nodig</button><button role="tab" aria-selected="false" data-view="exception">Uitzonderingen</button><button role="tab" aria-selected="false" data-view="progress">Loopt door</button></div>
-    <div class="filters"><label class="search">Werknemer of dossier<input id="search" type="search" placeholder="Zoeken op naam of dossier" autocomplete="off"></label><label>Status<select id="status"><option value="all">Alle statussen</option><option value="missing">ORV ontbreekt</option><option value="mismatch">Niet bij planning zichtbaar</option><option value="waiting">Bij planning</option><option value="scheduled">Spreekuur gepland</option><option value="exception">Uitzondering vastgelegd</option></select></label><button id="reset" class="text-button">Filters wissen</button></div>
+    <div class="filters"><div class="filter-owner"><span>Casemanagementteam</span><strong>C. Schepers</strong></div><label class="search">Werknemer of dossier<input id="search" type="search" placeholder="Zoeken op naam of dossier" autocomplete="off"></label><label>Status<select id="status"><option value="all">Alle statussen</option><option value="missing">ORV ontbreekt</option><option value="mismatch">Niet bij planning zichtbaar</option><option value="waiting">Bij planning</option><option value="scheduled">Spreekuur gepland</option><option value="exception">Uitzondering vastgelegd</option></select></label><div class="filter-actions"><button id="search-button" class="primary" type="button">Zoeken</button><button id="reset" class="text-button">Filters wissen</button></div><div class="reference">Peildatum demo<strong>28 september 2026</strong></div></div>
     <div class="table-wrap"><table><thead><tr><th scope="col">Werknemer</th><th scope="col">Eerste ziektedag</th><th scope="col" title="Kalenderdagen tot en met de demopeildatum, inclusief de eerste ziektedag">Verzuimduur</th><th scope="col"><button id="sort-date">Laatste spreekuur <span aria-hidden="true">↕</span></button></th><th scope="col">Oproepverzoek ingediend</th><th scope="col"><span class="sr-only">Dossier openen</span></th></tr></thead><tbody id="rows"></tbody></table><div id="empty" hidden>Geen dossiers gevonden met deze filters.</div></div>
     <footer class="table-footer"><span id="visible-count"></span><span>Fictieve gegevens · Geen koppeling met Xpert Suite</span></footer>
   </main>
