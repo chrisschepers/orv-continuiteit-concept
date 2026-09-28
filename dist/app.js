@@ -77,6 +77,7 @@ function openDetail(id){
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{view=button.dataset.view;render();}));
 document.querySelector('[role=tablist]').addEventListener('keydown',event=>{const tabs=[...document.querySelectorAll('[role=tab]')];const index=tabs.indexOf(document.activeElement);if(index<0)return;let target;if(event.key==='ArrowRight')target=(index+1)%tabs.length;if(event.key==='ArrowLeft')target=(index-1+tabs.length)%tabs.length;if(event.key==='Home')target=0;if(event.key==='End')target=tabs.length-1;if(target!==undefined){event.preventDefault();tabs[target].click();tabs[target].focus();}});
 $('search').addEventListener('input',render);$('status').addEventListener('change',render);
+$('search-button').addEventListener('click',render);
 $('reset').addEventListener('click',()=>{$('search').value='';$('status').value='all';view='all';render();});
 $('sort-date').addEventListener('click',()=>{ascending=!ascending;render();});
 $('rows').addEventListener('click',event=>{const button=event.target.closest('[data-id]');if(button)openDetail(button.dataset.id);});
