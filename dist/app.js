@@ -43,7 +43,7 @@ function render(){
  for(const type of ['all','attention','progress','exception'])$('count-'+type).textContent=cases.filter(item=>matches(item,type)).length;
  document.querySelectorAll('[role=tab]').forEach(tab=>{const active=tab.dataset.view===view;tab.setAttribute('aria-selected',active);tab.tabIndex=active?0:-1;});
  const query=$('search').value.toLocaleLowerCase('nl').trim();
- const filtered=cases.filter(item=>matches(item,view)&&($('status').value==='all'||item.state===$('status').value)&&`${item.name} ${item.id}`.toLocaleLowerCase('nl').includes(query));
+ const filtered=cases.filter(item=>matches(item,view)&&($('status').value==='all'||Boolean(item.submitted)===($('status').value==='yes'))&&`${item.name} ${item.id}`.toLocaleLowerCase('nl').includes(query));
  filtered.sort((a,b)=>ascending?a.last.localeCompare(b.last):b.last.localeCompare(a.last));
  $('rows').innerHTML=filtered.map(item=>`<tr><td><span class="person">${escape(item.name)}</span><span class="secondary">${item.id}</span></td><td class="date">${date(item.last)}</td><td>${item.submitted?`<span class="orv-yes">Ja</span><span class="secondary date">${date(item.submitted)}</span>`:'<span class="orv-no">Nee</span>'}</td><td><button class="row-action" data-id="${item.id}" aria-label="Open demodossier van ${escape(item.name)}">&#8250;</button></td></tr>`).join('');
  document.querySelectorAll('#rows tr').forEach((row,index)=>{
@@ -89,10 +89,10 @@ if(document.modelContext?.registerTool){
  try{
   Promise.resolve(document.modelContext.registerTool({
    name:'show_demo_case_view',title:'Demodossiers filteren',
-   description:'Toon alle fictieve dossiers, dossiers met aandacht, uitzonderingen of lopende vervolgen. Wijzigt alleen de zichtbare selectie.',
-   inputSchema:{type:'object',properties:{view:{type:'string',enum:['all','attention','exception','progress']}},required:['view'],additionalProperties:false},
+   description:'Toon alle fictieve dossiers of lopende vervolgen. Wijzigt alleen de zichtbare selectie.',
+   inputSchema:{type:'object',properties:{view:{type:'string',enum:['all','progress']}},required:['view'],additionalProperties:false},
    annotations:{readOnlyHint:false,untrustedContentHint:false},
-   execute(input){if(!input||!['all','attention','exception','progress'].includes(input.view)||Object.keys(input).some(key=>key!=='view'))throw new Error('Ongeldige dossierselectie');view=input.view;$('search').value='';$('status').value='all';render();return {view,count:cases.filter(item=>matches(item,view)).length,demo:true};}
+   execute(input){if(!input||!['all','progress'].includes(input.view)||Object.keys(input).some(key=>key!=='view'))throw new Error('Ongeldige dossierselectie');view=input.view;$('search').value='';$('status').value='all';render();return {view,count:cases.filter(item=>matches(item,view)).length,demo:true};}
   },{signal:lifecycle.signal})).catch(()=>{});
  }catch{}
  window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
